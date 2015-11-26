@@ -4,15 +4,15 @@ open import Data.Integer as Int hiding (_≤?_) renaming (_≤_ to _≤ℤ_; suc
 open import Data.Nat as Nat renaming (_*_ to _ℕ*_; _+_ to _ℕ+_)
 open import Data.Nat.Properties.Simple using (+-right-identity)
 open import Data.Nat.Properties using (≤-steps; m≤m+n; n≤m+n)
-open import Data.Nat.DivMod
+open import Data.Nat.DivMod using (_mod_)
 open import Data.Fin as Fin hiding (_+_; _-_; _≤_) renaming (zero to fzero; suc to fsuc)
 open import Data.Sum using (inj₁; inj₂) renaming (_⊎_ to _∪_)
-open import Data.Vec
+open import Data.Vec using (Vec; _∷_; []; sum; zipWith)
 open import Data.Product using (_,_; ∃) renaming (_×_ to _∩_)
 open import Function using (_$_; _∘_)
-open import Relation.Nullary
-open import Relation.Nullary.Decidable
-open import Relation.Binary.PropositionalEquality as PropEq
+open import Relation.Nullary using (yes; no; ¬_)
+open import Relation.Nullary.Decidable using (True; fromWitness)
+open import Relation.Binary.PropositionalEquality as PropEq using (_≡_; cong; refl)
 
 open import Relation.Binary
 open DecTotalOrder Nat.decTotalOrder
