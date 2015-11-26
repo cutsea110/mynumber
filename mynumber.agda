@@ -39,51 +39,10 @@ lemma₁ -[1+ n ] m (-≤- n≤m , -≤+) = s≤s (sub (cong suc (+-right-identi
     sub refl a≤c = a≤c
 lemma₁ (+ n) m (proj₁ , proj₂) = s≤s (drop‿+≤+ proj₂)
 
-+↔- : ℤ → ℤ
-+↔- -[1+ n ] = + suc n
-+↔- (+ zero) = + zero
-+↔- (+ suc n) = -[1+ n ]
-
-a≤b⇒c+a≤c+b : ∀ a b c → a ≤ b → c ℕ+ a ≤ c ℕ+ b
-a≤b⇒c+a≤c+b a b zero a≤b = a≤b
-a≤b⇒c+a≤c+b a b (suc c) a≤b = s≤s (a≤b⇒c+a≤c+b a b c a≤b)
-
 a≤b⇒a+c≤b+c : ∀ a b c → a ≤ b → a ℕ+ c ≤ b ℕ+ c
 a≤b⇒a+c≤b+c .0 b zero z≤n = z≤n
 a≤b⇒a+c≤b+c .0 b (suc c) z≤n = n≤m+n b (suc c)
 a≤b⇒a+c≤b+c ._ ._ c (s≤s a≤b) = s≤s (a≤b⇒a+c≤b+c _ _ c a≤b)
-
-a≤b⇒a≤c+b : ∀ a b c → a ≤ b → a ≤ c ℕ+ b
-a≤b⇒a≤c+b a b c = ≤-steps {a} {b} c
-
-n≤m⇒-m≤-n : ∀ n m → + n  ≤ℤ + m → -[1+ m ] ≤ℤ -[1+ n ]
-n≤m⇒-m≤-n n m (+≤+ m≤n) = -≤- m≤n
-
-a≤b⇒a≤b+c : ∀ a b c → a ≤ b → a ≤ b ℕ+ c
-a≤b⇒a≤b+c a b c a≤b = ≤ℕ-trans a≤b (m≤m+n b c)
-
-x-y≤z→x≤y+z : ∀ x y z → + x - + y ≤ℤ + z → + x ≤ℤ + y + + z
-x-y≤z→x≤y+z x zero z (+≤+ m≤n) = +≤+ (x+0≤z→x≤z m≤n)
-  where
-    x+0≤z→x≤z : ∀ {x z} → x ℕ+ 0 ≤ z → x ≤ z
-    x+0≤z→x≤z {zero} p = z≤n
-    x+0≤z→x≤z {suc x₁} {zero} ()
-    x+0≤z→x≤z {suc x₁} {suc z₁} (s≤s p) = s≤s (x+0≤z→x≤z p)
-x-y≤z→x≤y+z zero (suc y) z p = +≤+ z≤n
-x-y≤z→x≤y+z (suc x) (suc y) z p with x ≤? y
-x-y≤z→x≤y+z (suc .0) (suc y) z p | yes z≤n = +≤+ (s≤s z≤n)
-x-y≤z→x≤y+z (suc ._) (suc ._) z p | yes (s≤s q) = +≤+ (s≤s (s≤s (a≤b⇒a≤b+c _ _ z q)))
-... | no ¬q = +≤+ (s≤s (x⊝y≤z→x≤y+z x y z ¬q p))
-  where
-    ¬Sx≤Sy→¬x≤y : ∀ x y → ¬ suc x ≤ suc y → ¬ x ≤ y
-    ¬Sx≤Sy→¬x≤y zero zero p₁ x₁ = p₁ (s≤s z≤n)
-    ¬Sx≤Sy→¬x≤y zero (suc zero) p₁ z≤n = p₁ (s≤s z≤n)
-    ¬Sx≤Sy→¬x≤y zero (suc (suc y₁)) p₁ z≤n = p₁ (s≤s z≤n)
-    ¬Sx≤Sy→¬x≤y (suc x₁) y₁ p₁ x₂ = p₁ (s≤s x₂)
-    x⊝y≤z→x≤y+z : ∀ x y z → ¬ x ≤ y → x ⊖ y ≤ℤ + z → x ≤ y ℕ+ z
-    x⊝y≤z→x≤y+z zero y₁ z₁ ¬q₁ p₁ = z≤n
-    x⊝y≤z→x≤y+z (suc x₁) zero z₁ ¬q₁ (+≤+ m≤n) = m≤n
-    x⊝y≤z→x≤y+z (suc x₁) (suc y₁) z₁ ¬q₁ p₁ = s≤s (x⊝y≤z→x≤y+z x₁ y₁ z₁ (¬Sx≤Sy→¬x≤y x₁ y₁ ¬q₁) p₁)
 
 x≤y+z→x-y≤z : ∀ x y z → + x ≤ℤ + y + + z → + x - + y ≤ℤ + z
 x≤y+z→x-y≤z x zero z (+≤+ m≤n) = x≤z→x-0≤z m≤n
@@ -128,7 +87,6 @@ x≤y+z→x-y≤z (suc x) (suc y) z (+≤+ (s≤s m≤n)) with x ≤? y
     x≤y+z→x⊝y≤z zero y₁ z₁ ¬q₁ z≤n = 0⊝y≤z y₁ z₁
     x≤y+z→x⊝y≤z (suc x₁) zero z₁ ¬q₁ p = +≤+ p
     x≤y+z→x⊝y≤z (suc x₁) (suc y₁) z₁ ¬q₁ (s≤s p) = x≤y+z→x⊝y≤z x₁ y₁ z₁ (¬Sx≤Sy→¬x≤y x₁ y₁ ¬q₁) p
-    
 
 calcCD : MyNumber → CD
 calcCD = magic ∘ acc
