@@ -1,30 +1,25 @@
 module mynumber where
 
-open import Data.Bool
 open import Data.Integer as Int hiding (_≤?_) renaming (_≤_ to _≤ℤ_; suc to 1+)
 open import Data.Nat as Nat renaming (_*_ to _ℕ*_; _+_ to _ℕ+_)
 open import Data.Nat.Properties.Simple using (+-right-identity)
-open import Data.Nat.Properties using (≤-step; ≤-steps; m≤m+n; n≤m+n; n≤1+n; 1+n≰n; ≤pred⇒≤; ≤⇒pred≤)
-                                renaming (pred-mono to predℕ-mono; _+-mono_ to _ℕ+-mono_)
-open import Data.Empty using (⊥-elim)
+open import Data.Nat.Properties using (≤-steps; m≤m+n; n≤m+n)
 open import Data.Nat.DivMod
 open import Data.Fin as Fin hiding (_+_; _-_; _≤_) renaming (zero to fzero; suc to fsuc)
 open import Data.Sum using (inj₁; inj₂) renaming (_⊎_ to _∪_)
-open import Data.Unit using (⊤;tt)
 open import Data.Vec
 open import Data.Product using (_,_; ∃) renaming (_×_ to _∩_)
 open import Function using (_$_; _∘_)
-open import Data.Sign renaming (+ to ⊕; - to ⊝)
 open import Relation.Nullary
 open import Relation.Nullary.Decidable
 open import Relation.Binary.PropositionalEquality as PropEq
 
 open import Relation.Binary
 open DecTotalOrder Nat.decTotalOrder
- using () renaming (refl to ≤ℕ-refl; trans to ≤ℕ-trans; _≤?_ to _≤ℕ?_)
+ using () renaming (trans to ≤ℕ-trans)
 
 open DecTotalOrder Int.decTotalOrder
- using () renaming (refl to ≤ℤ-refl; trans to ≤ℤ-trans; _≤?_ to _≤ℤ?_)
+ using () renaming (trans to ≤ℤ-trans)
 
 Num = Fin 10
 CD = Num
