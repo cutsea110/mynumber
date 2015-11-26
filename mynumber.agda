@@ -132,6 +132,6 @@ myMN2 = valid
 totality : (n : MyNumber) → ∃ λ cd → ValidMyNumber n cd
 totality n = calcCD n , valid
 
-unique : ∀ n x y → ValidMyNumber n x → ValidMyNumber n y → x ≡ y
-unique n ._ ._ valid valid = refl
+uniqueness : ∀ n x y → ValidMyNumber n x → ValidMyNumber n y → x ≡ y
+uniqueness n ._ ._ valid valid = refl
 
