@@ -122,10 +122,10 @@ calcCD = magic ∘ acc
 data ValidMyNumber : MyNumber → CD → Set where
   valid : ∀ {n11} → ValidMyNumber n11 (calcCD n11)
 
-myMN1 : ValidMyNumber test1 (calcCD test1)
+myMN1 : ValidMyNumber test1 (# 8)
 myMN1 = valid
 
-myMN2 : ValidMyNumber test2 (calcCD test2)
+myMN2 : ValidMyNumber test2 (# 3)
 myMN2 = valid
 
 -- Properties
@@ -134,3 +134,4 @@ totality n = calcCD n , valid
 
 uniqueness : ∀ n x y → ValidMyNumber n x → ValidMyNumber n y → x ≡ y
 uniqueness n ._ ._ valid valid = refl
+
