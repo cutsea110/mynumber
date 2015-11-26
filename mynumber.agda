@@ -12,7 +12,7 @@ open import Data.Fin as Fin hiding (_+_; _-_; _≤_) renaming (zero to fzero; su
 open import Data.Sum using (inj₁; inj₂) renaming (_⊎_ to _∪_)
 open import Data.Unit using (⊤;tt)
 open import Data.Vec
-open import Data.Product using (_,_) renaming (_×_ to _∩_)
+open import Data.Product using (_,_; ∃) renaming (_×_ to _∩_)
 open import Function using (_$_; _∘_)
 open import Data.Sign renaming (+ to ⊕; - to ⊝)
 open import Relation.Nullary
@@ -174,3 +174,11 @@ myMN1 = valid
 
 myMN2 : ValidMyNumber test2 (# 3)
 myMN2 = valid
+
+-- Properties
+totality : (n : MyNumber) → ∃ λ cd → ValidMyNumber n cd
+totality n = calcCD n , valid
+
+unique : ∀ n x y → ValidMyNumber n x → ValidMyNumber n y → x ≡ y
+unique n ._ ._ valid valid = refl
+
