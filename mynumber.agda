@@ -149,21 +149,16 @@ calcCD = magic ∘ acc
         11≤r+9 r₁ (+≤+ m≤n) = a≤b⇒a+c≤b+c _ _ 9 m≤n
         11-r≤9 : (r : Fin 11) → + 2 ≤ℤ + toℕ r → + 11 - (+ toℕ r) ≤ℤ + 9
         11-r≤9 r 2≤r = x≤y+z→x-y≤z 11 (toℕ r) 9 (+≤+ (11≤r+9 r 2≤r))
-        0≤11-r-1 : (r : Fin 11) → + 0 ≤ℤ + 11 - + toℕ r + -[1+ 0 ]
-        0≤11-r-1 fzero = +≤+ z≤n
-        0≤11-r-1 (fsuc fzero) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc fzero)) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc fzero))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc fzero)))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc (fsuc fzero))))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc fzero)))))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc fzero))))))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc fzero)))))))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc fzero))))))))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc fzero)))))))))) = +≤+ z≤n
-        0≤11-r-1 (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc (fsuc ())))))))))))
+        0≤x-y-1→0≤Sx-Sy-1 : ∀ x y → + 0 ≤ℤ + x + - (+ y) + -[1+ 0 ] → + 0 ≤ℤ x ⊖ y + -[1+ 0 ]
+        0≤x-y-1→0≤Sx-Sy-1 zero zero ()
+        0≤x-y-1→0≤Sx-Sy-1 (suc x) zero p = +≤+ z≤n
+        0≤x-y-1→0≤Sx-Sy-1 x (suc y) p = p
+        0≤n-r-1 : ∀ n → (r : Fin n) → + 0 ≤ℤ + n - + toℕ r + -[1+ 0 ]
+        0≤n-r-1 zero ()
+        0≤n-r-1 (suc n) fzero = +≤+ z≤n
+        0≤n-r-1 (suc n) (fsuc r) = 0≤x-y-1→0≤Sx-Sy-1 n (toℕ r) (0≤n-r-1 n r)
         -10≤11-r-1 : (r : Fin 11) → + 2 ≤ℤ + toℕ r → -[1+ 9 ] ≤ℤ + 11 + - (+ toℕ r) + -[1+ 0 ]
-        -10≤11-r-1 r 2≤r = ≤ℤ-trans -≤+ (0≤11-r-1 r)
+        -10≤11-r-1 r 2≤r = ≤ℤ-trans -≤+ (0≤n-r-1 11 r)
     magic : ℕ → CD
     magic x with x mod 11
     magic x | fzero = fzero
